@@ -52,7 +52,10 @@ pytest tests/ -v
 
 ### Запуск тестов по категориям
 
-
+Тесты файлов e2e
+```bash
+pytest  tests/e2e/test.py -v
+```
 Тесты файлов CDR (валидатор)
 ```bash
 pytest  tests/cdr/test.py -v
@@ -93,6 +96,10 @@ Bootcamp_2025/
 │   │   ├── helpers.py    # Вспомогательные функции
 │   │   ├── __init__.py
 │   │   └── test.py       # Файл с тестами CDR
+│   ├── e2e/              # Тесты e2e
+│   │   ├── helpers.py    # Вспомогательные функции
+│   │   ├── __init__.py
+│   │   └── test.py       # Файл с тестами e2e
 │   ├── __init__.py
 │   └── main.py           # Точка входа для запуска тестов
 └── README.md             # Эта документация
