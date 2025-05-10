@@ -1,0 +1,55 @@
+# Игнорировать виртуальное окружение
+venv/
+.env/
+env/
+.venv/
+selenium_env/
+
+# Игнорировать файлы, созданные PyCharm или другими IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Игнорировать кэш Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Игнорировать файлы, созданные setuptools
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Игнорировать файлы, созданные pytest
+.pytest_cache/
+
+# Игнорировать файлы, созданные Jupyter Notebook
+.ipynb_checkpoints/
+
+# Игнорировать файлы, созданные pip
+pip-selfcheck.json
+
+# Игнорировать файлы, созданные операционной системой
+.DS_Store
+Thumbs.db
+
+# Игнорировать логи и временные файлы
+*.log
+*.tmp
+
+# Игнорировать конфиденциальные данные
+secrets.py
+*.env
+*.key
+*.pem
+
+# Игнорировать файлы, специфичные для проекта
+/data/
+/output/
+/temp/
+
+# Additional
+.pytest_cache
+tests/__pycache__
