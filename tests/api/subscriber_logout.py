@@ -1,9 +1,9 @@
 import pytest
 import requests
 from urllib.parse import urljoin
-from tests.API_endpoints.constants import BASE_URL, SUBSCRIBER_LOGIN, SUBSCRIBER_PASSWORD, TEST_SUBSCRIBER_ID
+from tests.api.constants import BASE_URL, SUBSCRIBER_LOGIN, SUBSCRIBER_PASSWORD, TEST_SUBSCRIBER_ID
 
-from tests.API_endpoints.helpers import get_auth_token
+from tests.api.helpers import get_auth_token
 
 def test_client_logout_200():
     token = get_auth_token({"login": SUBSCRIBER_LOGIN, "password": SUBSCRIBER_PASSWORD})

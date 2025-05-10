@@ -52,6 +52,11 @@ pytest tests/ -v
 
 ### Запуск тестов по категориям
 
+
+Тесты файлов CDR (валидатор)
+```bash
+pytest  tests/cdr/test.py -v
+```
 Тесты аутентификации
 ```bash
 pytest tests/api/{subscriber,manager}_auth.py -v
@@ -84,6 +89,10 @@ Bootcamp_2025/
 │   │   ├── helpers.py    # Вспомогательные функции
 │   │   ├── __init__.py
 │   │   └── ...           # Файлы с тестами
+│   ├── cdr/              # Тесты CDR
+│   │   ├── helpers.py    # Вспомогательные функции
+│   │   ├── __init__.py
+│   │   └── test.py       # Файл с тестами CDR
 │   ├── __init__.py
 │   └── main.py           # Точка входа для запуска тестов
 └── README.md             # Эта документация

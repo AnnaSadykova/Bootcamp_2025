@@ -2,8 +2,8 @@ import pytest
 import requests
 from urllib.parse import urljoin
 
-from tests.API_endpoints.constants import BASE_URL, MANAGER_LOGIN, MANAGER_PASSWORD
-from tests.API_endpoints.helpers import get_auth_token
+from tests.api.constants import BASE_URL, MANAGER_LOGIN, MANAGER_PASSWORD
+from tests.api.helpers import get_auth_token
 
 def test_register_client_201():
     token = get_auth_token({"login": MANAGER_LOGIN, "password": MANAGER_PASSWORD})

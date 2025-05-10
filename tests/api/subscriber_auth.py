@@ -2,7 +2,7 @@ import pytest
 import requests
 from urllib.parse import urljoin
 
-from tests.API_endpoints.constants import BASE_URL, SUBSCRIBER_LOGIN, SUBSCRIBER_PASSWORD
+from tests.api.constants import BASE_URL, SUBSCRIBER_LOGIN, SUBSCRIBER_PASSWORD
 
 def test_client_authentication_200():
     url = urljoin(BASE_URL, "/auth")
