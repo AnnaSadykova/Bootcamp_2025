@@ -52,6 +52,14 @@ pytest tests/ -v
 
 ### Запуск тестов по категориям
 
+Генератор позитивных cdr-файлов
+```bash
+pytest  tests/generators/positive_cdr_generator.py -v
+```
+Генератор негативных cdr-файлов
+```bash
+pytest  tests/generators/negative_cdr_generator.py -v
+```
 Тесты файлов e2e
 ```bash
 pytest  tests/e2e/test.py -v
