@@ -108,6 +108,10 @@ Bootcamp_2025/
 │   │   ├── helpers.py    # Вспомогательные функции
 │   │   ├── __init__.py
 │   │   └── test.py       # Файл с тестами e2e
+│   ├── generators/       # Генераторы CDR
+│   │   ├── negative_cdr_generator.py    # Порождение негативных CDR файлов
+│   │   ├── positive_cdr_generator.py    # Порождение позитивных CDR файлов
+│   │   └── __init__.py
 │   ├── __init__.py
 │   └── main.py           # Точка входа для запуска тестов
 └── README.md             # Эта документация
