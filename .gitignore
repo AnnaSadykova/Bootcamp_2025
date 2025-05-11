@@ -53,3 +53,6 @@ secrets.py
 # Additional
 .pytest_cache
 tests/__pycache__
+
+# Allure
+allure-results

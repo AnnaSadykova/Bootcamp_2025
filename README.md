@@ -89,6 +89,18 @@ pytest tests/api/send_SMS.py -v
 pytest tests/api/get_balance.py::test_get_balance -v
 ```
 
+### Allure Report
+
+Запуск тестов с генерацией Allure-результатов
+```bash
+pytest --alluredir=./allure-results
+```
+Генерация и просмотр отчета
+```bash
+allure serve ./allure-results
+```
+
+
 ## Структура проекта
 ```
 Bootcamp_2025/
