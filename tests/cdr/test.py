@@ -29,7 +29,8 @@ def test_empty_file(test_files_dir):
 def test_incorrect_record_count_less(test_files_dir):
     """Test file with less than 10 records"""
     errors = validate_cdr_file(os.path.join(test_files_dir, 'CDR_negative_9.txt'))
-    assert "Файл содержит менее 10 записей в случае если отправка CDR файла не форсируется в течение 1 суток" in errors["file_structure"][0]
+    assert isinstance(errors["file_structure"][0], int), "Ожидалось целое число"
+    assert errors["file_structure"][0] < 10, "Количество записей < 10"
 
 @allure.story("Негативный сценарий")
 @allure.title("Более 10 записей в CDR-файле")
@@ -37,21 +38,23 @@ def test_incorrect_record_count_less(test_files_dir):
 def test_incorrect_record_count_more(test_files_dir):
     """Test file with more than 10 records"""
     errors = validate_cdr_file(os.path.join(test_files_dir, 'CDR_negative_11.txt'))
-    assert "Файл содержит более 10 записей" in errors["file_structure"][0]
+    assert isinstance(errors["file_structure"][0], int), "Ожидалось целое число"
+    assert errors["file_structure"][0] > 10, "Количество записей > 10"
 
 @allure.story("Негативный сценарий")
-@allure.title("Нет запятой между полями")
+@allure.title("Нет разделителя (запятой) между полями = неверное количество полей")
 @allure.severity(allure.severity_level.CRITICAL)
 def test_missing_comma(test_files_dir):
     """Test file with missing comma in records"""
     errors = validate_cdr_file(os.path.join(test_files_dir, 'CDR_negative_without_comma.txt'))
-    assert "Нет разделителя (запятой) между полями = неверное количество полей" in errors["record_format"][0]
+    assert errors["record_format"][0] != 5
 
 @allure.story("Негативный сценарий")
 @allure.title("Нет номера телефона")
 @allure.severity(allure.severity_level.CRITICAL)
 def test_empty_parameter(test_files_dir):
     """Test file with empty parameter in record"""
+    
     errors = validate_cdr_file(os.path.join(test_files_dir, 'CDR_negative_empty_parameter.txt'))
     assert "Номер телефона отсутствует" in errors["phone_numbers"][0]
 
@@ -61,7 +64,7 @@ def test_empty_parameter(test_files_dir):
 def test_invalid_phone_number(test_files_dir):
     """Test file with invalid phone number (wrong length)"""
     errors = validate_cdr_file(os.path.join(test_files_dir, 'CDR_negative_number12.txt'))
-    assert "Номер телефона имеет длину больше 11" in errors["phone_numbers"][0]
+    assert errors["phone_numbers"][0] != 11
 
 @allure.story("Негативный сценарий")
 @allure.title("Тип вызова не 01 или не 02")

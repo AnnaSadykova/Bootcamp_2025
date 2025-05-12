@@ -40,9 +40,9 @@ def validate_cdr_file(file_path: str) -> Dict[str, List[str]]:
     
     # Проверка количества записей
     if len(lines) < 10:
-        errors["file_structure"].append(f"Файл содержит только {len(lines)} записей (ожидается 10)")
+        errors["file_structure"].append(len(lines))
     elif len(lines) > 10:
-        errors["file_structure"].append(f"Файл содержит {len(lines)} записей (ожидается 10)")
+        errors["file_structure"].append(len(lines))
     
     # Проверка каждой записи
     for i, line in enumerate(lines, 1):
@@ -55,9 +55,8 @@ def validate_cdr_file(file_path: str) -> Dict[str, List[str]]:
         
         # Проверка количества полей в записи
         if len(parts) != 5:
-            errors["record_format"].append(
-                f"Строка {i}: Неправильное количество полей ({len(parts)} вместо 5)"
-            )
+            errors["record_format"].append(len(parts))
+            print( f"Строка {i}: Неправильное количество полей ({len(parts)} вместо 5)")
             continue
         
         call_type, subscriber, contact, start_time, end_time = parts
@@ -81,14 +80,16 @@ def validate_cdr_file(file_path: str) -> Dict[str, List[str]]:
         phone_errors = []
         for field, number in [('subscriber', subscriber), ('contact', contact)]:
             if not number:
-                phone_errors.append(f"{field} номер отсутствует")
-            elif not number.isdigit():
-                phone_errors.append(f"{field} номер '{number}' содержит нецифровые символы")
-            elif len(number) != 11:
-                phone_errors.append(f"{field} номер '{number}' имеет длину {len(number)} (ожидается 11)")
-        
+                phone_errors.append("Номер телефона отсутствует")
+            else:
+                if not number.isdigit():
+                    phone_errors.append("Номер содержит нецифровые символы")
+                if len(number) != 11:
+                    phone_errors.append(len(number))
+
         if phone_errors:
-            errors["phone_numbers"].append(f"Строка {i}: " + "; ".join(phone_errors))
+            errors["phone_numbers"].append(phone_errors)
+            print(f"Строка {i}: " + "; ".join(str(phone_errors)))
         
         # Проверка временных меток
         time_errors = []
@@ -141,8 +142,9 @@ def validate_cdr_file(file_path: str) -> Dict[str, List[str]]:
             for call in calls_by_subscriber[subscriber]:
                 other_start, other_end, other_line = call
                 if not (end_dt <= other_start or start_dt >= other_end):
-                    call_dir = "исходящий" if call_type == '01' else "входящий"
-                    errors["call_logic"].append(
+                    call_dir = "исходящих" if call_type == '01' else "входящих"
+                    errors["call_logic"].append(f"Конфликт {call_dir} вызовов")
+                    print(
                         f"Строка {i}: Конфликт {call_dir} вызова с строкой {other_line} "
                         f"для абонента {subscriber} (пересечение временных интервалов)"
                     )
@@ -204,7 +206,8 @@ def validate_cdr_file(file_path: str) -> Dict[str, List[str]]:
                 
                 # Проверяем, что это не разделенный звонок
                 if not (start_dt == midnight or end_dt == midnight):
-                    errors["midnight_crossing"].append(
+                    errors["midnight_crossing"].append("Звонок пересекает полночь и не делится на 2 звонка")
+                    print(
                         f"Строка {i}: Звонок пересекает полночь (с {start_time} по {end_time}) "
                         f"и должен быть разделен на две записи: "
                         f"1) до 23:59:59 {start_dt.date()} и "
